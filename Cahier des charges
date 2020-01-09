@@ -4,7 +4,10 @@ Notre prorgamme propose les fonctionnalités suivantes :
 - Lancer sur interface graphique avec un jeu qui fonctionne au clic de la souris.
 - Sélectionner les pièces et voir les déplacements possibles (cases colorées en vert) pour chacun selon la disposition du plateau et la pièce sélectionée.
 - Déplacer les pièces chacun son tour en cliquant sur les cases vertes associées à la pièce sélectionée.
-- On déplace les blancs puis noirs ce qui respcete le principe du 1vs1.
+- Déplacer les blancs puis noirs ce qui respcete le principe du 1vs1.
 - Manger les pièces adverses et mise en échec possible.
-- Lors d'une mise en échec on contraint l'utilisateur à contrer l'adversaire, empêche également de se mettre en échec.
+- Lors d'une mise en échec on contraint l'utilisateur à contrer l'adversaire.
+- Impossibilité de se mettre soi-même en echec.
 - Echec et mat fonctionnel, affiche un message qui marque la fin de la partie, pour quitter il faut fermer la fenêtre.
+- Atteindre le bout du plateau permet de faire une promotion.
+
