@@ -1,0 +1,31 @@
+Glossaire :
+
+GANTT : Méthode de type diagramme consistant à déterminer la meilleure manière possible de
+positionner les différentes tâches d’un projet à exécuter sur une
+période déterminée.
+
+PERT : Méthode consistant à représenter sous forme de réseau
+des étapes reliées par des tâches en exprimant toutes les relations ou
+contraintes existant entre ces tâches.
+
+
+Échiquier : plateau carré de 64 cases sur lequel se joue une partie d'échecs.
+
+Case : Case-clé :
+	case d'importance stratégique majeure dans une finale.
+       Case faible :
+	case qui ne peut pas être défendue facilement contre une attaque.
+       Cases blanches :
+	les 32 cases de couleur claire du plateau de jeu.
+       Cases noires :
+	les 32 cases de couleur sombre du plateau de jeu.
+
+Cavalier : Pièce du jeu qui a la particularité de pouvoir sauter par-dessus des pièces pour se déplacer.
+
+Fou : Pièce à longue portée qui se déplace en diagonale.
+
+Tour : Pièce à longue portée qui se déplace verticalement ou horizontalement.
+
+Roi : La pièce la plus importante du jeu, le but étant de mater le roi de l'adversaire et ainsi remporter la victoire.
+
+Dame : La pièce à longue portée, la plus mobile du jeu.
