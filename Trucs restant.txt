@@ -4,3 +4,4 @@ Pert
 Améliorer le glossaire
 SWOT
 commentaires IA 
+lire cahier des charges
