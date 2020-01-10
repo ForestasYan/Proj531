@@ -1,31 +1,40 @@
 Glossaire :
 
-GANTT : M�thode de type diagramme consistant � d�terminer la meilleure mani�re possible de
-positionner les diff�rentes t�ches d�un projet � ex�cuter sur une
-p�riode d�termin�e.
-
-PERT : M�thode consistant � repr�senter sous forme de r�seau
-des �tapes reli�es par des t�ches en exprimant toutes les relations ou
-contraintes existant entre ces t�ches.
 
 
-�chiquier : plateau carr� de 64 cases sur lequel se joue une partie d'�checs.
+Pion: Pièce qui ne peut aller qu'en avant. Lors de son premier décplacement, elle à la possibilité de se déplacver deux fois. Cette pièce peut se manger en avançant en digonale
 
-Case : Case-cl� :
-	case d'importance strat�gique majeure dans une finale.
-       Case faible :
-	case qui ne peut pas �tre d�fendue facilement contre une attaque.
-       Cases blanches :
-	les 32 cases de couleur claire du plateau de jeu.
-       Cases noires :
-	les 32 cases de couleur sombre du plateau de jeu.
+Cavalier : Pièce du jeu qui peut avancer, dans le même tour, de deux cases selon un axe, et une case selon l'autre. La particularité de cette pièce est de pouvoir sauter par-dessus d'autres pièces pour se déplacer.
 
-Cavalier : Pi�ce du jeu qui a la particularit� de pouvoir sauter par-dessus des pi�ces pour se d�placer.
+Fou : Pièce qui peut se déplacer en diagonale tant qu'il n'y a pas d'obstacles.
 
-Fou : Pi�ce � longue port�e qui se d�place en diagonale.
+Tour : Pièce qui peut se déplacer verticalement ou horizontalement tant qu'il n'y a pas d'obstacles.
 
-Tour : Pi�ce � longue port�e qui se d�place verticalement ou horizontalement.
+Roi : La pièce la plus importante du jeu qu'il faut protéger, il peut se déplacer dans toutes les directions un case à la fois.
 
-Roi : La pi�ce la plus importante du jeu, le but �tant de mater le roi de l'adversaire et ainsi remporter la victoire.
+Dame : Pièce la plus mobile du jeu qui peut faire les mouvements du roi, des fous et des tours.
 
-Dame : La pi�ce � longue port�e, la plus mobile du jeu.
+Mat : Un joueur est "mat" si une pièce de l'adversaire est en mesure de manger le roi au tour suivant.
+
+Echec et mat : un joueur est "echec et mat" si son roi est mat et que, quelque soit le mouvement de ses pièces, le sera après son coup suivant. Le joueur échec et mat pert alors la partie.
+
+Coup : Fait pour un joueur de déplacer une pièce, après un coup, le joueur cède la main à l'autre
+
+Manger : Par "manger", on entends qu'une pièce, après s'être déplacée, prends la place d'une pièce ennemie et la sort du jeu
+
+
+
+Pièce: Dans ce programme, une pièce est représenté par sa couleur et sa nature
+Nature d'une pièce: classe qui représente ce qu'est la pièce (pion, cavalier...) et qui contient l'ensemble des mouvements que cette pièce peut faire.
+
+Échiquier : plateau carré de 8*8 cases sur lequel se joue une partie d'échecs. Il sera ici représenté par une matrice 8*8. Chaque case sera repindices allant de 0 à 7
+
+Case : Dans le programme, une case sera représentée par 2 indices allant de 0 à 7, qui représenterons sa position dans la matrice (0,0 étant la case en haut à droite et 7,7 la case en bas à droite), ainsi que d'une pièce oud'un None (s'il n'y a pas de pièce dessus)
+
+Case-clé : Case d'importance stratégique majeure pour l'IA, le but étant de localiser ces cases et de s'en servir pour qu'elle joue un mouvement intelligent.
+
+Coups légaux : Un coup est légal quand il respècte les règles de l'échec, c'est à dire qui respècte les déplacements de la pièce, ne saute pas par dessus une autre pièce (sauf pour le cavalier), ne fait pas sortir une pièce du plateau, qu'il permette à un joueur de ne plus être échec s'il l'est au début du cours et qu'il ne mette pas le joueur en échec alors qu'il ne l'était pas au début du tour
+
+Promotion: Action qui permet à un pion qui a atteint le bout du plateau de se transformer en reine, fou, tour ou cavalier en fonction de ce que le joueur veut.
+
+Roque: Action qui permet au roi et à une tour qui n'ont pas encore bougés depuis le début de la partie et qui n'ont aucune pièce entre eux de se déplacer tous les deux aux même tour sur la ligne où ils se trouvent
