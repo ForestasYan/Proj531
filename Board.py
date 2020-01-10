@@ -71,7 +71,7 @@ class Board:
             if self.piece_selectionnee.nature.nom == 'K' :
                 self.rock()
 
-    def rock(self):
+    def rock(self): #Code du roque
         c = self.couleur_jouee
         if self.rois_rock[c] and self.tours_rock[c][0] and (self.get_plateau()[7*(1-c),1].piece == None) and (self.get_plateau()[7*(1-c),2].piece == None) :
             self.cases_selectionnables += [[7*(1-c),1]]
@@ -79,7 +79,7 @@ class Board:
             self.cases_selectionnables += [[7*(1-c),5]]
 
             
-    def transformer_pion(self,y,x):
+    def transformer_pion(self,y,x): #Transformer le pion quand il arrive au bout
         event = pygame.event.wait()
         while event.type != pygame.MOUSEBUTTONDOWN :
             event = pygame.event.wait()
@@ -92,7 +92,7 @@ class Board:
         elif event.pos[0] >= 300 and event.pos[1] <= 300 :
             self.get_plateau()[y,x].piece = Piece(self.couleur_jouee,Reine())
 
-    def display_menu(self):
+    def display_menu(self): #affichage du menu en debut de partie
         self.display(self.menuimg)
         event = pygame.event.wait()
         while event.type != pygame.MOUSEBUTTONDOWN :
@@ -103,7 +103,7 @@ class Board:
             self.jouer_ia = True
         self.menu = True
 
-    def display(self, changement = None):
+    def display(self, changement = None): #affichage de la partie en cours
         self.screen.fill((0,0,0))
         self.screen.blit(self.chess,(0,0))
         self.draw_cases_selectionnables(self.cases_selectionnables)
@@ -116,23 +116,23 @@ class Board:
             self.screen.blit(changement, (0,0))
         pygame.display.flip()
 
-    def display_echec_et_maths(self):
+    def display_echec_et_maths(self): #affichage de l'ecran de fin
         if (self.echec_et_maths[0] == True) and (self.echec_et_maths[1] == 0):
             self.screen.blit(self.echecB,(0,0))
         elif (self.echec_et_maths[0] == True) and (self.echec_et_maths[1] == 1):
             self.screen.blit(self.echecN,(0,0))
 
-    def clic_to_case(self,pos):
+    def clic_to_case(self,pos): #Transforme la position de la sourie en coordonnees de case
         if (36 < pos[0]< 564) and (36 <= pos[1] <= 564):
             case_x = (pos[0]-36)//66
             case_y = (pos[1]-36)//66
             self.selectionner_case(case_y,case_x)
 
-    def draw_cases_selectionnables(self, cases_a_colorier):
+    def draw_cases_selectionnables(self, cases_a_colorier): #dessine les cases selectionnables en vert
         for case in cases_a_colorier :
             pygame.draw.rect(self.screen, (0,255,0), [case[1]*66+36, case[0]*66+36, 66, 66])
 
-    def verifie_echec(self, liste_cases):
+    def verifie_echec(self, liste_cases): #verifie pour chaque piece si elle peut manger le roi a l'aide de la fonction roi_en_echec
         Liste_possible = []
         for case in liste_cases :
             board_copie = self.copier()
@@ -146,7 +146,7 @@ class Board:
                 Liste_possible += [case]
         return Liste_possible
 
-    def roi_en_echec(self, couleur):
+    def roi_en_echec(self, couleur): #verifie si le roi peut se faire manger
         for i in range(8):
             for j in range(8):
                 if self.get_plateau()[i,j].piece == None :
@@ -155,7 +155,7 @@ class Board:
                     return True
         return False
 
-    def echec_maths(self):
+    def echec_maths(self): #verifie si il y a echec et math
         for i in range(8):
             for j in range(8):
                 if (self.get_plateau()[i,j].piece == None):
@@ -169,7 +169,7 @@ class Board:
         self.echec_et_maths = [True, self.couleur_jouee]
         return True
 
-    def copier(self):
+    def copier(self): #fait une copie du board pour simuler des deplacements
         copie = Board()
         for i in range(8):
             for j in range(8):
@@ -177,7 +177,7 @@ class Board:
         return copie
 
 
-    def ia_trouver_attaquant(self,couleur):
+    def ia_trouver_attaquant(self,couleur): #ia / peu fonctionnelle
         valeur_attaque = 0
         depart = None
         arrivee = None
@@ -201,7 +201,7 @@ class Board:
                             arrivee = d[0],d[1]
         return (depart,arrivee)
 
-    def proteger(self,depart,arrivee):
+    def proteger(self,depart,arrivee): #ia / peu fonctionnelle
         if depart != None :
             for i in range(8):
                 for j in range(8):
@@ -224,7 +224,7 @@ class Board:
                                 return (True,[i,j],d)
         return (False,None,None)
 
-    def deplacement_random(self):
+    def deplacement_random(self): #ia / peu fonctionnelle
         cases = []
         for i in range(8):
             for j in range(8):
@@ -241,7 +241,7 @@ class Board:
                     return (c,random.choice(liste_deplacements))
         return(None,None)
 
-    def ia(self):
+    def ia(self): #ia / peu fonctionnelle
         attaquant = self.ia_trouver_attaquant(1-self.couleur_jouee)
         protection = self.proteger(attaquant[0],attaquant[1])
         if protection[0] == True :
