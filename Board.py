@@ -22,10 +22,13 @@ class Board:
         self.echecN = pygame.image.load("echecN.gif")
         self.changeN = pygame.image.load("changeN.gif")
         self.changeB = pygame.image.load("changeB.gif")
+        self.menuimg = pygame.image.load("menu.gif")
         self.position_rois = [[7,3],[0,3]]
         self.echec_et_maths = [False,None]
         self.rois_rock = [True,True]
         self.tours_rock = [[True,True],[True,True]]
+        self.jouer_ia = False
+        self.menu = False
 
     #getter
     def get_plateau(self):
@@ -88,6 +91,17 @@ class Board:
             self.get_plateau()[y,x].piece = Piece(self.couleur_jouee,Fou())
         elif event.pos[0] >= 300 and event.pos[1] <= 300 :
             self.get_plateau()[y,x].piece = Piece(self.couleur_jouee,Reine())
+
+    def display_menu(self):
+        self.display(self.menuimg)
+        event = pygame.event.wait()
+        while event.type != pygame.MOUSEBUTTONDOWN :
+            event = pygame.event.wait()
+        if event.pos[0] <= 300 :
+            self.jouer_ia = False
+        else :
+            self.jouer_ia = True
+        self.menu = True
 
     def display(self, changement = None):
         self.screen.fill((0,0,0))
@@ -162,79 +176,89 @@ class Board:
                 copie.plateau[i,j] = Case(i,j,self.get_plateau()[i,j].piece)
         return copie
 
-    def ia2(self,liste = None, limite = 1000):
-        if liste == None :
-            couleur = self.couleur_jouee
-            liste_case = []
+
+    def ia_trouver_attaquant(self,couleur):
+        valeur_attaque = 0
+        depart = None
+        arrivee = None
+        for i in range(8):
+            for j in range(8):
+                liste_deplacements_enemy = []
+                if self.get_plateau()[i,j].piece == None :
+                    pass
+                elif self.get_plateau()[i,j].piece.couleur == couleur :
+                    self.case_selectionnee = [i,j]
+                    self.piece_selectionnee = self.get_plateau()[i,j].piece
+                    liste_deplacements_enemy = self.verifie_echec(self.piece_selectionnee.nature.deplacements(i,j,couleur,self))
+                for d in liste_deplacements_enemy :
+                    if self.get_plateau()[d[0],d[1]].piece == None :
+                        pass
+                    elif self.get_plateau()[d[0],d[1]].piece.couleur == 1-couleur :
+                        valeur = self.get_plateau()[d[0],d[1]].piece.nature.valeur
+                        if valeur > valeur_attaque :
+                            valeur_attaque = valeur
+                            depart = [i,j]
+                            arrivee = d[0],d[1]
+        return (depart,arrivee)
+
+    def proteger(self,depart,arrivee):
+        if depart != None :
             for i in range(8):
                 for j in range(8):
-                    liste_case += [[i,j]]
-            random.shuffle(liste_case)
-        else :
-            couleur = 1 - self.couleur_jouee
-            liste_case = liste
-        valeur_deplacement = -1000
-        depart = [None,None]
-        arrivee = [None,None]
-        for k in liste_case :
-            liste_deplacements = []
-            if self.get_plateau()[k[0],k[1]].piece == None:
-                pass
-            elif self.get_plateau()[k[0],k[1]].piece.couleur == couleur:
-                self.case_selectionnee = [k[0],k[1]]
-                self.piece_selectionnee = self.get_plateau()[k[0],k[1]].piece
-                liste_deplacements = self.verifie_echec(self.piece_selectionnee.nature.deplacements(k[0],k[1],couleur,self))
-                if liste == None :
-                    random.shuffle(liste_deplacements)
-            for d in liste_deplacements :
-                self.piece_selectionnee = self.get_plateau()[k[0],k[1]].piece
-                valeur1 = self.give_valeur_deplacement_tour1(d)
-                if valeur1 >= limite :
-                    return 1000
-                if valeur1 >= valeur_deplacement and liste != None :
-                    valeur_deplacement = valeur1
-                if valeur1 > valeur_deplacement and liste == None :
-                    board_copie = self.copier()
-                    board_copie.get_plateau()[d[0], d[1]].piece = self.piece_selectionnee
-                    board_copie.get_plateau()[k[0], k[1]].piece = None
-                    valeur2 = valeur1 - board_copie.ia2(liste_case,valeur1 - valeur_deplacement)
-                    if valeur2 > valeur_deplacement:
-                        valeur_deplacement = valeur2
-                        depart = k
-                        arrivee = d
-        if liste == None :
-            self.selectionner_case(depart[0],depart[1])
-            self.display()
-            time.sleep(0.5)
-            self.selectionner_case(arrivee[0],arrivee[1])
-        return (valeur_deplacement)
+                    liste_deplacements = []
+                    if self.get_plateau()[i,j].piece == None :
+                        pass
+                    elif self.get_plateau()[i,j].piece.couleur == self.couleur_jouee :
+                        self.case_selectionnee = [i,j]
+                        self.piece_selectionnee = self.get_plateau()[i,j].piece
+                        liste_deplacements = self.verifie_echec(self.piece_selectionnee.nature.deplacements(i,j,self.couleur_jouee,self))
+                        for d in liste_deplacements :
+                            board_copie = self.copier()
+                            board_copie.case_selectionnee = [depart[0],depart[1]]
+                            board_copie.piece_selectionnee = board_copie.get_plateau()[depart[0],depart[1]].piece
+                            board_copie.get_plateau()[d[0], d[1]].piece = self.get_plateau()[i,j].piece
+                            board_copie.get_plateau()[i,j].piece = None
+                            if arrivee in board_copie.verifie_echec(board_copie.piece_selectionnee.nature.deplacements(depart[0],depart[1],1-self.couleur_jouee,board_copie)):
+                                pass
+                            else :
+                                return (True,[i,j],d)
+        return (False,None,None)
 
-    def give_valeur_deplacement_tour1(self,d):
-        if self.get_plateau()[d[0],d[1]].piece == None :
-            return 0
-        return self.get_plateau()[d[0],d[1]].piece.nature.valeur
+    def deplacement_random(self):
+        cases = []
+        for i in range(8):
+            for j in range(8):
+                cases += [[i,j]]
+        random.shuffle(cases)
+        for c in cases :
+            if self.get_plateau()[c[0],c[1]].piece == None :
+                pass
+            elif self.get_plateau()[c[0],c[1]].piece.couleur == self.couleur_jouee :
+                self.case_selectionnee = [c[0],c[1]]
+                self.piece_selectionnee = self.get_plateau()[c[0],c[1]].piece
+                liste_deplacements = self.verifie_echec(self.piece_selectionnee.nature.deplacements(c[0],c[1],self.couleur_jouee,self))
+                if liste_deplacements != []:
+                    return (c,random.choice(liste_deplacements))
+        return(None,None)
 
     def ia(self):
-        liste_case = []
-        for i in range(8):
-                for j in range(8):
-                    liste_case += [[i,j]]
-        random.shuffle(liste_case)
-        valeur_deplacement = -1000
-        depart = [None,None]
-        arrivee = [None,None]
-        for k in liste_case :
-            if self.get_plateau()[k[0],k[1]].piece == None:
-                liste_deplacements = []
-            elif self.get_plateau()[k[0],k[1]].piece.couleur == self.couleur_jouee:
-                self.case_selectionnee = [k[0],k[1]]
-                self.piece_selectionnee = self.get_plateau()[k[0],k[1]].piece
-                liste_deplacements = self.verifie_echec(self.piece_selectionnee.nature.deplacements(k[0],k[1],self.couleur_jouee,self))
-            for d in liste_deplacements:
-                valeur = 0
-                if self.get_plateau()[d[0],d[1]].piece == None :
-                    pass
-                elif self.get_plateau()[d[0],d[1]].piece.couleur == 1 - self.couleur_jouee :
-                    valeur = self.get_plateau()[d[0],d[1]].piece.nature.valeur
-
+        attaquant = self.ia_trouver_attaquant(1-self.couleur_jouee)
+        protection = self.proteger(attaquant[0],attaquant[1])
+        if protection[0] == True :
+            depart = protection[1]
+            arrivee = protection[2]
+        else:
+            attaque = self.ia_trouver_attaquant(self.couleur_jouee)
+            if attaque[0] != None :
+                depart = attaque[0]
+                arrivee = attaque[1]
+            else :
+                dep_rand = self.deplacement_random()
+                depart = dep_rand[0]
+                arrivee = dep_rand[1]
+        self.selectionner_case(depart[0],depart[1])
+        self.display()
+        time.sleep(0.3)
+        self.selectionner_case(arrivee[0],arrivee[1])
+            
        
