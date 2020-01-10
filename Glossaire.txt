@@ -37,4 +37,8 @@ Coups légaux : Un coup est légal quand il respècte les règles de l'échec, c
 
 Promotion: Action qui permet à un pion qui a atteint le bout du plateau de se transformer en reine, fou, tour ou cavalier en fonction de ce que le joueur veut.
 
-Roque: Action qui permet au roi et à une tour qui n'ont pas encore bougés depuis le début de la partie et qui n'ont aucune pièce entre eux de se déplacer tous les deux aux même tour sur la ligne où ils se trouvent
+Roque: Action qui permet au roi et à une tour qui n'ont pas encore bougés depuis le début de la partie et qui n'ont aucune pièce entre eux de se déplacer tous les deux aux même tour sur la ligne où ils se trouvent.
+
+Interface : fenêtre qui permet à l'utilisateur de comprendre ce qui se passe et d'interagir avec le programme de manière efficace
+
+IA : On entends par IA une intelligence artificielle, un programme qui cherche à imiter un humzin, dans le cas de ce projet, l'IA cherche à jouer au échecs contre l'utilisateur.
