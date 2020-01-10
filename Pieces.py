@@ -13,6 +13,7 @@ class Pion:
     def __init__(self):
         # This is its name in the matrix
         self.nom = 'P'
+        self.valeur = 1
     
     # Checks if a pawn has moved since the beginning of the game (used to check if the pawn can move forward two spots)
     def est_a_origine(self,y,couleur) :
@@ -74,6 +75,7 @@ class Tour:
     def __init__(self):
         # This is its name in the matrix
         self.nom = 'T'
+        self.valeur = 5
         
      # Define all the movements that the tower can do
     def deplacements(self,y,x,couleur,board):
@@ -131,6 +133,7 @@ class Cavalier:
         
         # This is its name in the matrix
         self.nom = 'C'
+        self.valeur = 5
     
     # Define all the movements that the knight can do
     def deplacements(self,y,x,couleur,board):
@@ -151,6 +154,7 @@ class Fou:
     def __init__(self):
         # This is its name in the matrix
         self.nom = 'F'
+        self.valeur = 5
     
      # Defines all the movements that the bishop can do
     def deplacements(self,y,x,couleur,board):
@@ -206,6 +210,7 @@ class Reine:
     def __init__(self):
         # This is its name in the matrix
         self.nom = 'Q'
+        self.valeur = 12
 
     # Defines all the movements that the queen can do with the help of the bishop and tower's classes
     def deplacements(self,y,x,couleur,board):
@@ -217,6 +222,7 @@ class Roi:
     def __init__(self):
         # This is its name in the matrix
         self.nom = 'K'
+        self.valeur = 1000
 
     # Defines all the movements that the king can do (it doesn't return the spots where same coloured pieces are)
     def deplacements(self,y,x,couleur,board):
