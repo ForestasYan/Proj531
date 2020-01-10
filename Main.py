@@ -58,12 +58,12 @@ def main() :
         if event.type == pygame.QUIT:
             pygame.quit()
             break 
-        if board.menu == False :
+        if board.menu == False : #Tant qu'on a pas valide le menu
             board.display_menu()
         else :
             board.display()
 
-        if board.jouer_ia == True :
+        if board.jouer_ia == True : #Si on a choisi de jouer contre l'ia
 
             if event.type == pygame.MOUSEBUTTONDOWN and board.couleur_jouee == 0:
                 board.clic_to_case(event.pos)
