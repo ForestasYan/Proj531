@@ -1,13 +1,17 @@
-Le but de ce projet est de réaliser un jeu d'échec.
-Notre prorgamme propose les fonctionnalités suivantes :
+Le but de ce projet est de réaliser un jeu d'échec en python.
+Notre prorgamme doit posséder les fonctionnalités suivantes :
 
-- Lancer sur interface graphique avec un jeu qui fonctionne au clic de la souris.
-- Sélectionner les pièces et voir les déplacements possibles (cases colorées en vert) pour chacun selon la disposition du plateau et la pièce sélectionée.
-- Déplacer les pièces chacun son tour en cliquant sur les cases vertes associées à la pièce sélectionée.
-- Déplacer les blancs puis noirs ce qui respcete le principe du 1vs1.
-- Manger les pièces adverses et mise en échec possible.
-- Lors d'une mise en échec on contraint l'utilisateur à contrer l'adversaire.
-- Impossibilité de se mettre soi-même en echec.
-- Echec et mat fonctionnel, affiche un message qui marque la fin de la partie, pour quitter il faut fermer la fenêtre.
+- Un joueur doit avoir la possibilité de jouer seul ou contre un IA.
+- Une interface doit permettre à ce joueur de jouer facilement en se servant de sa souris.
+
+- Déplacer les blancs puis noirs Jusqu'a la fin de la partie.
+- Afficher les cases sur lesquelles une pièce peut se déplacer après avoir cliqué dessus.
+- Respecter les déplacements possibles des règles d'échec
+- Possibilité de déplacer les pièces chacun son tour en cliquant sur les pièces puis la case où se déplacer.
+- Possibilité de manger les pions adverse
 - Atteindre le bout du plateau permet de faire une promotion.
 
+- Pouvoir détecter si un joueur est en échec/échec et mat.
+- Pouvoir forcer un joueur à ne jouer que des coups qui lui permettent de ne plus être échec et mat.
+- Impossibilité pour un joueur de se mettre soi-même en echec.
+- Affichage d'un message qui marque la fin de la partie, pour quitter il faudra fermer la fenêtre.
