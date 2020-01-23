@@ -38,7 +38,8 @@ class Board:
     def get_plateau(self):
         return self.plateau
   
-    #on selectionne une case avec ses coordonnees
+    #This function is the main part of the whole program
+    #It will call all the other functions in order to play the game
     def selectionner_case(self,y,x):
         if [y,x] in self.cases_selectionnables :
             self.get_plateau()[y,x].piece = self.piece_selectionnee
