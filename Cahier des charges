@@ -15,3 +15,5 @@ Notre prorgamme doit posséder les fonctionnalités suivantes :
 - Pouvoir forcer un joueur à ne jouer que des coups qui lui permettent de ne plus être échec et mat.
 - Impossibilité pour un joueur de se mettre soi-même en echec.
 - Affichage d'un message qui marque la fin de la partie, pour quitter il faudra fermer la fenêtre.
+
+De plus, l'ensemble du programme sera commenté, le but étant qu'une personne exterieure au projet puisse savoir ce que fait chaque fonctions
