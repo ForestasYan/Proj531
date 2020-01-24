@@ -1,0 +1,7 @@
+Pour ce PERT:
+-Le numéro en haut d'un cercle représente le numéro de l'étape
+-Le numéro en bas à gauche représente le moment ou l'on peut commencer l'étape au plus tôt
+-Le numéro en bas à droite représente le moment ou l'on peut commencer l'étape au plus tard
+
+-Le numéro en haut d'une flèche représente la tâche qui est réalisée, POUR SAVOIR A QUELLE TACHE CORRESPOND LE NUMERO, IL FAUT LIRE LA LIGNE DU GANTT AVEC CE NUMERO
+-Le numéro en bas d'une flèche représente la durée que prends la tâche
